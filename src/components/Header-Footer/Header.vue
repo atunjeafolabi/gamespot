@@ -2,12 +2,12 @@
     <header>
         <div class="container header_container">
             <div class="logo">
-                <a href="#">GAMESPOT</a>
+                <router-link to="/">GAMESPOT</router-link>
             </div>
             <div class="login">
-                <a href="/signin">
+                <router-link to="/signin">
                     <img src="../../assets/images/login.png" alt="">
-                </a>
+                </router-link>
             </div>
         </div>
     </header>
