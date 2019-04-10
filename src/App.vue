@@ -11,11 +11,14 @@ import compHeader from './components/Header-Footer/Header.vue';
 import compFooter from './components/Header-Footer/Footer.vue';
 
 export default {
-  name: 'app',
-  components: {
-    compHeader,
-    compFooter
-  }
+    name: 'app',
+    components: {
+      compHeader,
+      compFooter
+    },
+    created(){
+      this.$store.dispatch('admin/refreshToken');
+    }
 }
 </script>
 
