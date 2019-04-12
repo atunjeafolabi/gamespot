@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './routes';
 import store from './Store/store.js';
 import Vuelidate from 'vuelidate';
+import wysiwyg from 'vue-wysiwyg';
 
 import VueResource from 'vue-resource';
 
@@ -17,6 +18,7 @@ Vue.component('app-button', Button);
 Vue.use(MdCard);
 Vue.use(VueResource);
 Vue.use(Vuelidate);
+Vue.use(wysiwyg, {})
 
 Vue.http.options.root = '';
 
