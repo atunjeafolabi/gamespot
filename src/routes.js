@@ -5,6 +5,9 @@ import store from './Store/store.js'
 import Home from './components/Home/Index.vue';
 import Signin from './components/Signin/Index.vue';
 import Dashboard from './components/Dashboard/Index.vue';
+import MainDashboard from './components/Dashboard/Main.vue';
+import AddPosts from './components/Dashboard/AddPosts.vue';
+import PostList from './components/Dashboard/ListPosts.vue';
 
 Vue.use(VueRouter);
 
@@ -42,7 +45,11 @@ const authGuard = {
 const routes = [
     { path: '/', component: Home },
     { path: '/signin',  component: Signin, ...authGuard },
-    { path: '/dashboard', component: Dashboard, ...authGuard }
+    { path: '/dashboard', component: Dashboard, children:[
+        { path:'/', component: MainDashboard },
+        { path:'add_posts', component: AddPosts },
+        { path:'posts_list', component: PostList }
+    ], ...authGuard }
 ];
 
 export default new VueRouter({

@@ -1,15 +1,25 @@
 <template>
-    <div>
-
+    <div class="container dashboard_container">
+        <div class="admin_nav">
+            <ul>
+                <li>
+                    <router-link to="/dashboard/add_posts">Add posts</router-link>
+                </li>
+                <li>
+                    <router-link to="/dashboard/posts_list">Manage Posts</router-link>
+                </li>
+            </ul>
+        </div>
+        <router-view/>
     </div>
 </template>
 
-<script lang="ts">
+<script>
     export default {
         
     }
 </script>
 
-<style lang="scss" scoped>
+<style>
 
 </style>
