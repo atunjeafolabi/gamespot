@@ -42,7 +42,7 @@
             >
                 <label for="">Rating</label>
                 <select
-                    v-model="rating"
+                    v-model="formData.rating"
                     @blur="$v.formData.rating.$touch()"
                 >
                 <option value="">1</option>
@@ -57,6 +57,16 @@
             </div>
             <button type="submit">Add post</button>
         </form>
+
+        <div v-if="add_post" class="post_succesfull">Your post was added</div>
+
+        <md-dialog :md-active="dialog">
+            <p>Your post has no conetent. Are you sure you want to post this?</p>
+            <md-dialog-actions>
+                <md-button class="md-primary" @click="dialogOnCancel">Oops, I want to add it.</md-button>
+                <md-button class="md-primary" @click="dialogOnConfirm">Yes I am sure</md-button>
+            </md-dialog-actions>
+        </md-dialog>
     </div>
 </template>
 
@@ -65,6 +75,7 @@
     export default {
         data() {
             return {
+                dialog: false,
                 formData: {
                     title: '',
                     desc: '',
@@ -80,16 +91,57 @@
                 },
                 desc: {
                     required,
-                    maxLength: maxLength (5)
+                    maxLength: maxLength (100)
                 },
                 rating: {
 
                 }
             }
         },
+        computed: {
+            //computed name may clash with method name
+            add_post() {
+                let status = this.$store.getters['admin/addPostStatus'];
+
+                if (status) {
+                    this.clearPost();
+                }
+
+                return status; 
+            }
+        },
         methods: {
             submitHandler() {
+                if (!this.$v.$invalid) {
+                    if (this.formData.content === '') {
+                        this.dialog = true;
+                    } else {
+                        this.addPost();
+                    }
+                } else {
+                  alert('something is wrong')  
+                }
+            },
+            addPost(){
+                this.$store.dispatch('admin/addPost', this.formData);
+                // console.log('add the post')
+            },
+            dialogOnCancel(){
+                this.dialog = false;
+            },
+            dialogOnConfirm(){
+                this.dialog = false;
+                this.addPost();
+            },
+            clearPost(){
+                this.formData = {
+                    title: '',
+                    desc: '',
+                    content: '',
+                    rating: ''
+                };
 
+                this.$v.$reset();   //clear error memory of vuelidate
             }
         },
     }

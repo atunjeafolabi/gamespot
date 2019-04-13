@@ -7,7 +7,7 @@ import wysiwyg from 'vue-wysiwyg';
 
 import VueResource from 'vue-resource';
 
-import { MdCard } from 'vue-material/dist/components'
+import { MdCard, MdButton, MdContent, MdDialog } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 
 import Button from './components/UI/Button.vue'
@@ -16,11 +16,14 @@ import Button from './components/UI/Button.vue'
 Vue.component('app-button', Button);
 
 Vue.use(MdCard);
+Vue.use(MdContent);
+Vue.use(MdDialog);
+Vue.use(MdButton);
 Vue.use(VueResource);
 Vue.use(Vuelidate);
 Vue.use(wysiwyg, {})
 
-Vue.http.options.root = '';
+Vue.http.options.root = 'https://gamespot-ca950.firebaseio.com/';
 
 new Vue({
   router,
