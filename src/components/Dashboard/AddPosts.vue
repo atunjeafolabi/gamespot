@@ -2,6 +2,15 @@
     <div class="dashboard_form">
         <h1>Add Posts</h1>
         <form @submit.prevent="submitHandler">
+
+            <div v-if="imageUpload">
+                <img :src="imageUpload" alt="">
+            </div>
+
+            <div class="input_field">
+                <input type="file" @change="processFile($event)" ref="myFileInput">
+            </div>
+
             <div 
                 class="input_field"
                 :class="{invalid: $v.formData.title.$error}"
@@ -77,6 +86,7 @@
             return {
                 dialog: false,
                 formData: {
+                    img: '',
                     title: '',
                     desc: '',
                     content: '',
@@ -105,9 +115,16 @@
 
                 if (status) {
                     this.clearPost();
+                    this.$store.commit('admin/clearImageUpload');
+
                 }
 
                 return status; 
+            },
+            imageUpload(){
+                let imageUrl = this.$store.getters['admin/imageUpload'];
+                this.formData.img = imageUrl;
+                return imageUrl;
             }
         },
         methods: {
@@ -134,6 +151,8 @@
                 this.addPost();
             },
             clearPost(){
+                this.$refs.myFileInput.value = '';
+                this.$v.$reset();   //clear error memory of vuelidate
                 this.formData = {
                     title: '',
                     desc: '',
@@ -141,9 +160,16 @@
                     rating: ''
                 };
 
-                this.$v.$reset();   //clear error memory of vuelidate
+                
+            },
+            processFile(event){
+                let file = event.target.files[0];
+                this.$store.dispatch('admin/imageUpload', file);
             }
         },
+        destroyed(){
+            this.$store.commit('admin/clearImageUpload');
+        }
     }
 </script>
 
