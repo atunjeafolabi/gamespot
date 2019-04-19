@@ -13,6 +13,7 @@
             v-if="type === 'btn'"
             :to="linkTo" 
             :class="['button_default', ...addClass]"
+            @click="action"
         >
             <slot/>
         </div>
@@ -21,7 +22,7 @@
 
 <script>
     export default {
-        props:['linkTo', 'addClass', 'ovStyle', 'type']
+        props:['linkTo', 'addClass', 'ovStyle', 'type', 'action']
     }
 </script>
 
