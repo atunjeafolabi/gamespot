@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard/Index.vue';
 import MainDashboard from './components/Dashboard/Main.vue';
 import AddPosts from './components/Dashboard/AddPosts.vue';
 import PostList from './components/Dashboard/ListPosts.vue';
+import Post from './components/Post/post.vue';
 
 Vue.use(VueRouter);
 
@@ -49,7 +50,8 @@ const routes = [
         { path:'/', component: MainDashboard },
         { path:'add_posts', component: AddPosts },
         { path:'posts_list', component: PostList }
-    ], ...authGuard }
+    ], ...authGuard },
+    { path: '/post/:id', component: Post }
 ];
 
 export default new VueRouter({
