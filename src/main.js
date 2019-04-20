@@ -7,7 +7,7 @@ import wysiwyg from 'vue-wysiwyg';
 
 import VueResource from 'vue-resource';
 
-import { MdCard, MdButton, MdContent, MdDialog } from 'vue-material/dist/components'
+import { MdCard, MdButton, MdContent, MdDialog, MdTable, MdDialogConfirm } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 
 import Button from './components/UI/Button.vue'
@@ -19,6 +19,8 @@ Vue.use(MdCard);
 Vue.use(MdContent);
 Vue.use(MdDialog);
 Vue.use(MdButton);
+Vue.use(MdTable);
+Vue.use(MdDialogConfirm);
 Vue.use(VueResource);
 Vue.use(Vuelidate);
 Vue.use(wysiwyg, {})

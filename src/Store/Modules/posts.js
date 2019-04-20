@@ -27,7 +27,14 @@ const posts = {
         },
         actions: {
             getAllPosts({commit}, payload) {
-                Vue.http.get(`posts.json?orderBy="$key"&limitToLast=${payload.limit}`)
+                let REQUEST_URL;    //varaiable declaration
+                if(payload == undefined){   //we should also check for null
+                    REQUEST_URL = `posts.json?orderBy="$key"`;
+                }else {
+                    REQUEST_URL = `posts.json?orderBy="$key"&limitToLast=${payload.limit}`;
+                }
+                
+                Vue.http.get(REQUEST_URL)
                 .then(response => response.json())
                 .then(res => {
                     const posts = [];
@@ -53,6 +60,16 @@ const posts = {
                         }
                     }
                     commit("getPost", post)
+                })
+            },
+            deletePost({commit, rootState, state}, id){
+                let token = rootState.admin.token;  //get the token from admin module
+                // console.log(token)
+                Vue.http.delete(`posts/${id}.json?auth=${token}`)
+                .then(response => {
+                    let remainingPosts = state.homePosts.filter(post => post.id !== id)
+                    commit('getAllPosts', remainingPosts)
+                    // console.log(response)
                 })
             }
         }
