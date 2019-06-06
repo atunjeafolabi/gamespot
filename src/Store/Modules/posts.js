@@ -67,6 +67,7 @@ const posts = {
                 // console.log(token)
                 Vue.http.delete(`posts/${id}.json?auth=${token}`)
                 .then(response => {
+                    //TODO:image should also be deleted from cloudinary 
                     let remainingPosts = state.homePosts.filter(post => post.id !== id)
                     commit('getAllPosts', remainingPosts)
                     // console.log(response)
